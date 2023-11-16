@@ -43,6 +43,12 @@ if response.status_code == 200:
         'Released': [{movie_data['Runtime']}]
     }
 
+    # Create a DataFrame
+    df = pd.DataFrame(data)
+
+    # Display the table
+    st.table(df)
+
     # Visualize the IMDb rating using a bar chart
     st.subheader("IMDb Rating Visualization:")
     df = pd.DataFrame({'Movie': [movie_data['Title']], 'IMDb Rating': [float(movie_data['imdbRating'])]})
