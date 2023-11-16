@@ -38,9 +38,9 @@ if response.status_code == 200:
     st.write(f"IMDb Rating: {movie_data['imdbRating']}")
 
     data = {
-        'Year': {movie_data['Year']},
-        'Rated': {movie_data['Rated']},
-        'Released': {movie_data['Runtime']}
+        'Year': [{movie_data['Year']}],
+        'Rated': [{movie_data['Rated']}],
+        'Released': [{movie_data['Runtime']}]
     }
 
     # Create a DataFrame
