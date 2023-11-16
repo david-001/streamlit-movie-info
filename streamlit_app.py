@@ -24,6 +24,9 @@ if response.status_code == 200:
     st.subheader("Movie Details:")
     st.write(f"Title: {movie_data['Title']}")
     st.write(f"Year: {movie_data['Year']}")
+    st.write(f"Rated: {movie_data['Rated']}")
+    st.write(f"Released: {movie_data['Released']}")
+    st.write(f"Runtime: {movie_data['Runtime']}")
     st.write(f"IMDb Rating: {movie_data['imdbRating']}")
 
     # Visualize the IMDb rating using a bar chart
