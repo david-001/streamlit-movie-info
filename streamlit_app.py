@@ -37,6 +37,12 @@ if response.status_code == 200:
     st.write(f"Awards: {movie_data['Awards']}")
     st.write(f"IMDb Rating: {movie_data['imdbRating']}")
 
+    data = {
+        'Year': [{movie_data['Year']}],
+        'Rated': [{movie_data['Rated']}],
+        'Released': [{movie_data['Runtime']}]
+    }
+
     # Visualize the IMDb rating using a bar chart
     st.subheader("IMDb Rating Visualization:")
     df = pd.DataFrame({'Movie': [movie_data['Title']], 'IMDb Rating': [float(movie_data['imdbRating'])]})
