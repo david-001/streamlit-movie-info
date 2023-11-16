@@ -27,6 +27,14 @@ if response.status_code == 200:
     st.write(f"Rated: {movie_data['Rated']}")
     st.write(f"Released: {movie_data['Released']}")
     st.write(f"Runtime: {movie_data['Runtime']}")
+    st.write(f"Genre: {movie_data['Genre']}")
+    st.write(f"Director: {movie_data['Director']}")
+    st.write(f"Writer: {movie_data['Writer']}")
+    st.write(f"Actors: {movie_data['Actors']}")
+    st.write(f"Plot: {movie_data['Plot']}")
+    st.write(f"Language: {movie_data['Language']}")
+    st.write(f"Country: {movie_data['Country']}")
+    st.write(f"Awards: {movie_data['Awards']}")
     st.write(f"IMDb Rating: {movie_data['imdbRating']}")
 
     # Visualize the IMDb rating using a bar chart
