@@ -119,12 +119,7 @@ with tab1:
         st.write(f"Director: {movies_df['Director'][i]}")
         st.write(f"Writer: {movies_df['Writer'][i]}")
         st.write(f"Actors: {movies_df['Actors'][i]}")
-        st.write(f"Plot: {movies_df['Plot'][i]}")
-        # Analyze emotions in the movie plot
-        # plot_text = detailed_data['Plot']
-        # emotion_result = analyze_emotion(plot_text)
-        # Display emotional insights
-        # st.write(f"Emotional Tone of the Plot: {emotion_result[0]['label']}")
+        st.write(f"Plot: {movies_df['Plot'][i]}")        
         st.write(f"Language: {movies_df['Language'][i]}")
         st.write(f"Country: {movies_df['Country'][i]}")
         st.write(f"Awards: {movies_df['Awards'][i]}")
