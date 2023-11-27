@@ -5,7 +5,7 @@ import plotly.express as px
 from datetime import datetime 
 
 # Streamlit app title
-st.title("OMDB Movie Search App")
+st.title("Movie Finder App")
 
 # User input for movie title
 movie_title = st.text_input("Enter Movie Title", "")
@@ -13,13 +13,13 @@ movie_title = st.text_input("Enter Movie Title", "")
 # Current Year
 current_year = datetime.now().year
 
+# Dataframe for storing all movie data
 movies_df = pd.DataFrame()
 
 # Filter options
 type_filter = st.selectbox("Filter by Type", ["movie", "series"])
 year_filter = st.slider("Filter by Release Year", min_value=1900, max_value=current_year, step=1, value=(1900, current_year))
 rating_filter = st.slider("Filter by IMDb Rating", min_value=0.0, max_value=10.0, step=0.1, value=(0.0, 10.0))
-
 
 # Search for the movie using the OMDB API
 if movie_title:
@@ -63,7 +63,8 @@ if movie_title:
               rating_filter[0] <= float(detailed_data["imdbRating"]) <= rating_filter[1]
             )    
         ):     
-                                                    
+
+          # Temporarily store movie detail in this dataframe.                                         
           new_row_df = pd.DataFrame({'Poster':[detailed_data['Poster']],
                                     'Title':[f"{detailed_data['Title']} ({detailed_data['Year']})"],
                                     'Year':[detailed_data['Year']],
@@ -79,9 +80,10 @@ if movie_title:
                                     'Awards':[detailed_data['Awards']],
                                     'Plot': [detailed_data['Plot']],
                                     'IMDB Rating': [detailed_data['imdbRating']],
-                                    'IMDB Votes': [detailed_data['imdbVotes']],
-                                    # 'Emotional tone':[analyze_emotion(f"{detailed_data['Plot']} {detailed_data['Genre']}")]
+                                    'IMDB Votes': [detailed_data['imdbVotes']],                                    
                                     })
+          
+          # Add movie detail dataframe to the main dataframe containing all movies
           movies_df = pd.concat([movies_df, new_row_df], ignore_index=True)                                             
     else:
       st.warning("No movies found for the specified criteria.")
@@ -92,6 +94,7 @@ else:
 # Setup tabs
 tab1, tab2 = st.tabs(["Search Results", "Ratings and Votes"])
 
+# Search Results: List of movie details
 with tab1:
   if(len(movies_df)>0):
     st.header("Search Results")          
@@ -102,6 +105,7 @@ with tab1:
         if(movies_df['Poster'][i]!="N/A"):
           st.image(movies_df['Poster'][i], caption=movies_df['Title'][i], use_column_width=True)
         else:
+        # If there is no movie poster, use custom movie poster  
           st.image("film-solid.png")               
 
       with col2:  
@@ -112,8 +116,7 @@ with tab1:
         col1.write(f"IMDb Rating: {movies_df['IMDB Rating'][i]}")    
         col2.write(f"Rated: {movies_df['Rated'][i]}")          
         col3.write(f"Runtime: {movies_df['Runtime'][i]}")
-                  
-        # st.write(f"Emotional Tone: {movies_df['Emotional tone'][i][0]['label']}")          
+                           
         st.write(f"Released: {movies_df['Released'][i]}")          
         st.write(f"Genre: {movies_df['Genre'][i]}")
         st.write(f"Director: {movies_df['Director'][i]}")
@@ -126,6 +129,7 @@ with tab1:
       
       st.divider()     
 
+# Plots of Ratings and Votes
 with tab2:
   if(len(movies_df)>0):
     fig = px.bar(movies_df, x='Title', y='IMDB Rating')  
